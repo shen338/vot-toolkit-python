@@ -255,7 +255,7 @@ class Workspace(Attributee):
     report = Nested(ReportConfiguration)
 
     @staticmethod
-    def initialize(directory, config=None, download=True):
+    def initialize(directory, config=None, download=False):
         config_file = os.path.join(directory, "config.yaml")
         if os.path.isfile(config_file):
             raise WorkspaceException("Workspace already initialized")
@@ -270,7 +270,7 @@ class Workspace(Attributee):
 
         if not os.path.isfile(os.path.join(directory, "trackers.ini")):
             open(os.path.join(directory, "trackers.ini"), 'w').close()
-
+        download = False
         if download:
             # Try do retrieve dataset from stack and download it
             stack_file = resolve_stack(config["stack"], directory)
